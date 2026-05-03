@@ -1,0 +1,118 @@
+#include <stdio.h>
+
+
+void mostrarMenuPrincipal() {
+    printf("\n===== Menu Principal ====\n");
+    printf("1. Registrar Entrada\n");
+    printf("2. Registrar Vendas\n");
+    printf("3. Ver Relatório\n");
+    printf("4. Sair\n");
+}
+
+void registrarEntrada(int estoque[]) {
+    int produto;
+    int quantidade;
+
+    printf("\n==== REGISTRAR ENTRADA DE ESTOQUE ====\n");
+    printf("1. Camisetas\n");
+    printf("2. Calças\n");
+    printf("3. Sapatos\n");
+    printf("Escolha o produto (1-3): ");
+    scanf("%d", &produto);
+
+    if (produto >= 1 && produto <= 3) {
+
+        printf("Quantidade a dar entrada: ");
+        scanf("%d", &quantidade);
+
+        estoque[produto - 1] += quantidade; 
+        
+        printf("Entrada registrada com sucesso!\n");
+    } else {
+        printf("Produto inválido!\n");
+    }
+}
+
+void registrarVendas(int estoque[]){
+    int produto;
+    int quantidade;
+
+    printf("\n==== REGISTRAR VENDA ====\n");
+    printf("1. Camisetas\n");
+    printf("2. Calças\n");
+    printf("3. Sapatos\n");
+    printf("Escolha o produto (1-3): ");
+    scanf("%d", &produto);
+
+    if (produto >= 1 && produto <= 3) {
+        do {
+        printf("Quantidade da compra: ");
+        scanf("%d", &quantidade);
+
+        
+        if (quantidade > estoque[produto - 1])
+        {
+            printf("Estoque insuficiente para esta venda!\n");
+        }
+        
+    } while (quantidade > estoque[produto - 1]);
+    
+        estoque[produto - 1] -= quantidade;
+        printf("Venda realizada com sucesso!\n");
+        
+    } else {
+        printf("Produto inválido!\n");
+    }
+}
+
+void verRelatorio(int estoque[]){
+    printf("\n====Estoque Geral====\n");
+    printf("Camisas: %d\n", estoque[0]);
+    printf("Calças: %d\n", estoque[1]);
+    printf("Sapatos: %d\n", estoque[2]);
+
+}
+
+int main (){
+    int opcao;
+    int estoque[3] = {0, 0, 0}; // Começamos com zero itens de cada
+    
+    do {
+        mostrarMenuPrincipal();
+    
+        printf("\nEscolha uma opção:");
+        scanf("%d", &opcao);
+
+        switch (opcao)
+        {
+        case 1:
+            
+            registrarEntrada(estoque);
+
+            break;
+        
+        case 2:
+            registrarVendas(estoque);
+            break;
+
+        case 3:
+            verRelatorio(estoque);
+            break;
+
+        case 4:
+            printf("\n");
+            break;
+        
+        default:
+            break;
+        }
+
+
+    }
+
+    while (opcao != 4);
+    
+    printf("Obrigado por usar nossa sistema!");
+
+return 0;
+}
